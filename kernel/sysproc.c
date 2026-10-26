@@ -110,3 +110,10 @@ sys_uptime(void)
   release(&tickslock);
   return xticks;
 }
+
+// Lab 10: return the number of active processes.
+uint64
+sys_getnproc(void)
+{
+  return countactiveprocs();
+}

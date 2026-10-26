@@ -701,3 +701,21 @@ procdump(void)
     printk("\n");
   }
 }
+
+// Lab 10: count processes that are not UNUSED.
+// Walks the process table the same way scheduler() does,
+// locking each process before reading its state.
+int
+countactiveprocs(void)
+{
+  struct proc *p;
+  int n = 0;
+
+  for (p = proc; p < &proc[NPROC]; p++) {
+    acquire(&p->lock);
+    if (p->state != UNUSED)
+      n++;
+    release(&p->lock);
+  }
+  return n;
+}
